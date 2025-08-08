@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO-DO LIST</title>
+    <style>
+        .table,
+        th,
+        td {
+            border: 2px solid black;
+            border-collapse: collapse;
+            width: 500px;
+            margin-left: 30%;
+            margin-top: 15px;
+            height: 30px;
+             font-size: x-large;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            font-style: italic;
+            
+        }
+
+        .table td {
+            text-align: center;
+            height: 50px;
+            width: 50px;
+            font-size: x-large;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            font-style: italic;
+
+        }
+
+        #text {
+            width: 300px;
+            height: 50px;
+            margin-left: 30%;
+            margin-top: 10%;
+        }
+
+        #btn {
+            width: 100px;
+            height: 50px;
+            border-radius: 10px;
+            background-color: lightblue;
+            cursor: pointer;
+            border-radius: 5px;
+            border-width: 5px;
+            font-size: x-large;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            font-style: italic;
+            margin-left: 20px;
+        }
+        #btn:hover{
+            background-color:dodgerblue;
+            animation-name: design;
+            animation-duration: 3s;
+            animation-iteration-count: 1;
+            color: white;
+          
+        }
+        @keyframes design
+        {
+            100%{
+                
+                transform:scale(1.5);
+                transform: skew(20deg);
+            }
+        }
+        
+        .delete
+        {
+            width: 100px;
+            height: 40px;
+            /* background-color: #fbc1ef ; */
+            background-color: lightblue;
+            border-radius: 5px;
+            font-size: large;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            font-style: italic;
+            cursor: pointer;
+            border-width: 5px;
+        }
+        .update
+        {
+            width: 100px;
+            height: 40px;
+            background-color: lightblue;
+            border-radius: 5px;
+             font-size: large;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            font-style: italic;
+            cursor: pointer;
+             margin-left: 10px;
+               border-width: 5px;
+        }
+
+        .update:hover , .delete:hover
+        {
+            background-color: dodgerblue;
+            animation-name: animate;
+            animation-duration: 3s;
+            animation-iteration-count: 1;
+            color: white;
+        }
+        @keyframes animate
+        {
+            100%
+            {
+                transform: skew(20deg);
+            }
+        }
+
+        input[type="text"]
+        {
+            border-radius: 5px;
+            border-width: 5px;
+            font-size: x-large;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            font-style: italic;
+        }
+        body
+        {
+            /* background-image: url('pic3.jpg');
+            background-repeat: no-repeat;
+            background-size: cover; */
+            background-color:lightblue;
+        }
+  @media only screen and (max-width:480px) {
+    #text {
+        width: 150px;
+        height: 50px;
+        margin-left: 10px;
+        font-size: small;
+    }
+
+    .table, td, th {
+        width: 100%;             
+        margin-left: 0;           
+        font-size: medium;
+        font-family: 'Times New Roman', Times, serif;
+        font-style: italic;
+        text-align: center;
+    }
+
+   
+    td {
+        height: auto;
+       
+    }
+     td:first-child {
+        border: 3px solid black;
+    }
+    td:last-child {
+        display: flex;
+        justify-content: center; 
+        align-items: center;
+        gap: 5px;
+        width: auto;    
+       border-top: none;
+       border-left: none;
+       border-right: none;
+       border-bottom: 3px solid black;
+        background: transparent;       
+    }
+
+   
+    .delete, .update {
+        width: 70px;
+        height: 35px;
+        font-size: small;
+        display: inline-block;
+        margin: 0;
+        background-color: lightblue;
+        border-radius: 5px;
+        
+    }
+    .delete:hover , .update:hover
+    {
+        background-color: dodgerblue;
+        color:white;
+        animation-name: animate;
+            animation-duration: 3s;
+            animation-iteration-count: 1;
+        
+    }
+     @keyframes animate
+        {
+            100%
+            {
+                transform: skew(20deg);
+            }
+        }
+     #btn:hover{
+            background-color:dodgerblue;
+            animation-name: design;
+            animation-duration: 3s;
+            animation-iteration-count: 1;
+            color: white;
+          
+        }
+        @keyframes design
+        {
+            100%{
+                
+                transform:scale(1.5);
+                transform: skew(20deg);
+            }
+        }
+}
+
+    </style>
+</head>
+
+<body>
+   
+    <input type="text" id="text" placeholder="Enter Schedule">
+    <button id="btn" onclick="add()" >Add</button>
+    <script>
+        var table = document.createElement('table');
+        table.className = "table";
+        document.body.appendChild(table);
+
+        var row = document.createElement('tr');
+        var head = document.createElement('th');
+        head.innerText = "Task";
+        var head1 = document.createElement('th');
+        head1.innerText = "Action";
+
+        row.appendChild(head);
+        row.appendChild(head1);
+        table.appendChild(row);
+      
+            var count=localStorage.getItem("count");
+            if(count===null)
+            {
+                count=0;
+            }
+            else
+            {
+                count=parseInt(count);
+            }
+
+            let total = parseInt(localStorage.getItem("count"));
+
+        for(let i = 0; i < total; i++)
+        {
+            let value = localStorage.getItem(i);
+            if(value) createrow(i, value);
+        }
+           
+            function createrow(key,text)
+            {
+                 var row1 = document.createElement('tr');
+                 var data = document.createElement('td');
+                 data.innerText = text;
+                 var data1 = document.createElement('td');
+                 var btn = document.createElement('button');
+                btn.className="delete";
+                 btn.innerText = "DELETE";
+                 btn.onclick = function () 
+                 {
+                table.removeChild(row1);
+                localStorage.removeItem(key);
+                alert("Removed the row successfully")
+                 };
+
+            
+           
+            var btn1 = document.createElement('button');
+            btn1.className="update";
+            btn1.innerText = "UPDATE";
+            
+            btn1.onclick = function () {
+                var text = document.getElementById('text').value;
+                var text1 = prompt("Enter update text:",  data.innerText);
+                 data.innerText= text1;
+                // row.appendChild(key,text1);
+                // data.appendChild(key,text1);
+
+                 localStorage.setItem(key,text1);
+                 alert("Updated Successfully");
+            };
+        
+            data1.appendChild(btn);
+            data1.appendChild(btn1);
+            row1.appendChild(data);
+            row1.appendChild(data1);
+            table.appendChild(row1);
+    }
+
+        
+
+            
+             function add() {
+            var text = document.getElementById('text').value;
+           
+            localStorage.setItem(count, text);
+            createrow(count, text);
+
+            count++;
+            
+            document.getElementById('text').value = "";
+        }
+        
+    </script>
+</body>
+
+</html>
+            
+        
